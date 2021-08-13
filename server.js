@@ -5,6 +5,7 @@ const question = require("./routers/question");
 const connectDatabase = require("./helpers/database/connectDatabase");
 const customErrorHandler = require("./middlewares/errors/customErrorHandler");
 const routers = require("./routers");
+const path = require("path");
 
 // Environment Variables
 dotenv.config({
@@ -19,6 +20,8 @@ app.use(express.json());
 app.use("/api", routers);
 //Error Handling
 app.use(customErrorHandler);
+//Static Files
+app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", (req, res) => {
   res.send("Hello World");
