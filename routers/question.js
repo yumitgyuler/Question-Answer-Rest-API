@@ -37,5 +37,5 @@ router.delete(
   [getAccessToRoute, checkQuestionExist, getQuestionOwnerAccess],
   deleteQuestion
 );
-router.use("/:question_id/answers", checkQuestionExist, answer);
+router.use("/:questionId/answers", checkQuestionExist, answer);
 module.exports = router;

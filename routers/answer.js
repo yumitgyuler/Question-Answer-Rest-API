@@ -1,10 +1,8 @@
 const express = require("express");
-
 const router = express.Router({ mergeParams: true });
+const { getAccessToRoute } = require("../middlewares/authorization/auth");
+const { addNewAnswerToQuestion } = require("../controllers/answer");
 
-router.get("/", (req, res, next) => {
-  console.log(req.params);
-  res.send("Answer Route");
-});
+router.post("/", getAccessToRoute, addNewAnswerToQuestion);
 
 module.exports = router;
