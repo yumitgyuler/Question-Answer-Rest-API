@@ -6,6 +6,8 @@ const {
   getSingelQuestions,
   editQuestion,
   deleteQuestion,
+  likeQuestion,
+  undoLikeQuestion,
 } = require("../controllers/question");
 const {
   checkQuestionExist,
@@ -18,6 +20,12 @@ const {
 router.get("/", getAllQuestions);
 router.get("/ask", getAccessToRoute, askNewQuestions);
 router.get("/:id", checkQuestionExist, getSingelQuestions);
+router.get("/:id/like", [getAccessToRoute, checkQuestionExist], likeQuestion);
+router.get(
+  "/:id/undo_like",
+  [getAccessToRoute, checkQuestionExist],
+  undoLikeQuestion
+);
 router.put(
   "/:id/edit",
   [getAccessToRoute, checkQuestionExist, getQuestionOwnerAccess],
