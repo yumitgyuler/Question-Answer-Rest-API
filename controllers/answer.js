@@ -56,10 +56,28 @@ const editAnswer = asyncErrorWrapper(async (req, res, next) => {
     data: answer,
   });
 });
+const deleteAnswer = asyncErrorWrapper(async (req, res, next) => {
+  const { answerId } = req.params;
+  const { questionId } = req.params;
+
+  await Answer.findByIdAndRemove(answerId);
+
+  const question = await Question.findById(questionId);
+
+  question.answers.splice(question.answers.indexOf(answerId), 1);
+
+  await question.save();
+
+  return res.status(200).json({
+    success: true,
+    message: "Answer deleted",
+  });
+});
 
 module.exports = {
   addNewAnswerToQuestion,
   getAllAnswersByQuestion,
   getSingelAnswers,
   editAnswer,
+  deleteAnswer,
 };
