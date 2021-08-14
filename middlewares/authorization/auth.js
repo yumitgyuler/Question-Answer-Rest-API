@@ -1,7 +1,7 @@
 const CustomError = require("../../helpers/error/CustomError");
 const asyncErrorWrapper = require("express-async-handler");
 const User = require("../../models/User");
-const Questions = require("../../models/Question");
+const Question = require("../../models/Question");
 const jwt = require("jsonwebtoken");
 const {
   isTokenIncluded,
@@ -47,8 +47,7 @@ const getQuestionOwnerAccess = asyncErrorWrapper(async (req, res, next) => {
   const questionId = req.params.id;
 
   const question = await Question.findById(questionId);
-
-  if (question.user !== userId) {
+  if (question.user != userId) {
     return next(new CustomError("Only owner can handle this operation", 403));
   }
   next();

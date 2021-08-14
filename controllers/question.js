@@ -29,5 +29,25 @@ const getSingelQuestions = asyncErrorWrapper(async (req, res, next) => {
     data: res.data,
   });
 });
+const editQuestion = asyncErrorWrapper(async (req, res, next) => {
+  const { id } = req.params;
 
-module.exports = { getAllQuestions, askNewQuestions, getSingelQuestions };
+  const editInformation = req.body;
+
+  const question = await Question.findByIdAndUpdate(id, editInformation, {
+    new: true,
+    runValidators: true,
+  });
+
+  res.status(200).json({
+    success: true,
+    data: question,
+  });
+});
+
+module.exports = {
+  getAllQuestions,
+  askNewQuestions,
+  getSingelQuestions,
+  editQuestion,
+};
