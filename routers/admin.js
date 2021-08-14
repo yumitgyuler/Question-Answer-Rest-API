@@ -5,7 +5,9 @@ const {
   getAdminAccess,
 } = require("../middlewares/authorization/auth");
 const { blockUser, deleteUser } = require("../controllers/admin");
-const checkUserExist = require("../middlewares/database/databaseErrorHelpers");
+const {
+  checkUserExist,
+} = require("../middlewares/database/databaseErrorHelpers");
 router.use([getAccessToRoute, getAdminAccess]);
 
 router.get("/block/:id", checkUserExist, blockUser);
