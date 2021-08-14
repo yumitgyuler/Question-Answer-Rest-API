@@ -34,5 +34,15 @@ const getAllAnswersByQuestion = asyncErrorWrapper(async (req, res, next) => {
     data: answers,
   });
 });
+const getSingelAnswers = asyncErrorWrapper(async (req, res, next) => {
+  return res.status(200).json({
+    success: true,
+    data: res.answer,
+  });
+});
 
-module.exports = { addNewAnswerToQuestion, getAllAnswersByQuestion };
+module.exports = {
+  addNewAnswerToQuestion,
+  getAllAnswersByQuestion,
+  getSingelAnswers,
+};
