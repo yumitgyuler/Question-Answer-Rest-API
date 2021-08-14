@@ -31,6 +31,12 @@ const QuestionsSchema = new Schema({
       ref: "User",
     },
   ],
+  answers: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: "Answer",
+    },
+  ],
 });
 QuestionsSchema.pre("save", function (next) {
   if (!this.isModified("title")) {
