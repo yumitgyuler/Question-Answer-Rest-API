@@ -13,11 +13,23 @@ const {
   getSingelAnswers,
   editAnswer,
   deleteAnswer,
+  likeAnswer,
+  undoLikeAnswer,
 } = require("../controllers/answer");
 
 router.post("/", getAccessToRoute, addNewAnswerToQuestion);
 router.get("/", getAllAnswersByQuestion);
 router.get("/:answerId", checkQuestionAndAnswerExist, getSingelAnswers);
+router.get(
+  "/:answerId/like",
+  [checkQuestionAndAnswerExist, getAccessToRoute],
+  likeAnswer
+);
+router.get(
+  "/:answerId/undolike",
+  [checkQuestionAndAnswerExist, getAccessToRoute],
+  undoLikeAnswer
+);
 router.put(
   "/:answerId/edit",
   [checkQuestionAndAnswerExist, getAccessToRoute, getAnswerOwnerAccess],
