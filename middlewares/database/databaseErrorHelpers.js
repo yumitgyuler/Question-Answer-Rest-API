@@ -45,7 +45,6 @@ const checkQuestionAndAnswerExist = asyncErrorWrapper(
         )
       );
     }
-    console.log(answer.content);
     res.answer = answer;
     next();
   }

@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router({ mergeParams: true });
-const { getAccessToRoute } = require("../middlewares/authorization/auth");
+const {
+  getAccessToRoute,
+  getAnswerOwnerAccess,
+} = require("../middlewares/authorization/auth");
 const {
   checkQuestionAndAnswerExist,
 } = require("../middlewares/database/databaseErrorHelpers");
@@ -8,10 +11,16 @@ const {
   addNewAnswerToQuestion,
   getAllAnswersByQuestion,
   getSingelAnswers,
+  editAnswer,
 } = require("../controllers/answer");
 
 router.post("/", getAccessToRoute, addNewAnswerToQuestion);
 router.get("/", getAllAnswersByQuestion);
 router.get("/:answerId", checkQuestionAndAnswerExist, getSingelAnswers);
+router.put(
+  "/:answerId/edit",
+  [checkQuestionAndAnswerExist, getAccessToRoute, getAnswerOwnerAccess],
+  editAnswer
+);
 
 module.exports = router;
