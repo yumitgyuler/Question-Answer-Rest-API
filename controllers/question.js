@@ -3,12 +3,7 @@ const CustomError = require("../helpers/error/CustomError");
 const asyncErrorWrapper = require("express-async-handler");
 
 const getAllQuestions = asyncErrorWrapper(async (req, res, next) => {
-  const questions = await Question.find();
-
-  res.status(200).json({
-    success: true,
-    data: questions,
-  });
+  return res.status(200).json(res.queryResult);
 });
 
 const askNewQuestions = asyncErrorWrapper(async (req, res, next) => {
